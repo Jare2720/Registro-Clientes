@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registro de Clientes - Proyéctate</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4f8;
+      padding: 2rem;
+      margin: 0;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 1.5rem;
+    }
+    input, select, textarea, button {
+      width: 100%;
+      padding: 0.75rem;
+      margin-top: 0.5rem;
+      border-radius: 0.5rem;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    button {
+      background: #0077cc;
+      color: white;
+      border: none;
+      margin-top: 1rem;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #005fa3;
+    }
+    @media (max-width: 600px) {
+      body {
+        padding: 1rem;
+      }
+      .container {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Registrar Cliente</h1>
+    <form id="clienteForm">
+      <label>Nombre completo:</label>
+      <input type="text" name="nombre" required />
+      
+      <label>Teléfono:</label>
+      <input type="tel" name="telefono" required />
+
+      <label>Correo electrónico:</label>
+      <input type="email" name="correo" />
+
+      <label>Tipo de propiedad:</label>
+      <select name="tipoPropiedad" required>
+        <option value="">Seleccionar</option>
+        <option value="Casa">Casa</option>
+        <option value="Depa">Depa</option>
+        <option value="Terreno">Terreno</option>
+        <option value="Comercial">Comercial</option>
+      </select>
+
+      <label>Zona de interés:</label>
+      <input type="text" name="zona" />
+
+      <label>Presupuesto estimado:</label>
+      <input type="text" name="presupuesto" />
+
+      <label>Objetivo:</label>
+      <select name="objetivo">
+        <option value="">Seleccionar</option>
+        <option value="Vivir">Vivir</option>
+        <option value="Invertir">Invertir</option>
+      </select>
+
+      <label>¿Cómo nos conoció?</label>
+      <select name="medio">
+        <option value="">Seleccionar</option>
+        <option value="Facebook">Facebook</option>
+        <option value="Instagram">Instagram</option>
+        <option value="Web">Web</option>
+        <option value="Referido">Referido</option>
+        <option value="Otro">Otro</option>
+      </select>
+
+      <label>Comentarios adicionales:</label>
+      <textarea name="comentarios" rows="3"></textarea>
+
+      <button type="submit">Guardar cliente</button>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('clienteForm');
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxJn75UnloH9gqjwTEnTKXobkwFYRrNMLEZSLj9UW88C91AIUbghVhWF4iqMN73JWWp/exec';
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+
+      try {
+        await fetch(scriptURL, {
+          method: 'POST',
+          body: formData
+        });
+        alert('Cliente registrado exitosamente');
+        form.reset();
+      } catch (error) {
+        alert('Error al enviar el formulario');
+        console.error(error);
+      }
+    });
+  </script>
+</body>
+</html>
